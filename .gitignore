@@ -2,6 +2,7 @@
 data/
 labels/
 .env
+.venv/
 __pycache__/
 *.pyc
 *.log

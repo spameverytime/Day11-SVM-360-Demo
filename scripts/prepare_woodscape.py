@@ -21,7 +21,7 @@ import requests
 from PIL import Image
 
 from _common import (DATA, PICKS, WS_CAMS, WS_FREESPACE_TAGS, WS_IGNORE_TAGS,
-                     WS_LINE_TAGS, kaggle_headers)
+                     WS_LINE_TAGS, kaggle_headers, load_env)
 
 KAGGLE_DS = "subarnadasgupta/woodscapes"
 DL = f"https://www.kaggle.com/api/v1/datasets/download/{KAGGLE_DS}"
@@ -166,6 +166,7 @@ def build_camera(session, cam, ids):
 
 
 def main():
+    load_env()
     load = json.loads((PICKS / "woodscape_picks.json").read_text())
     s = requests.Session(); s.headers.update(kaggle_headers())
     for cam in WS_CAMS:

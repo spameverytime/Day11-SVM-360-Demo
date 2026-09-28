@@ -13,7 +13,15 @@
 #          CVAT_* in .env/../cvat/.env; KAGGLE_API_TOKEN for WoodScape (B/C/D).
 set -euo pipefail
 cd "$(dirname "$0")"
-PY="${PY:-$HOME/miniconda3/envs/ai-lab/bin/python}"
+if [ -z "${PY:-}" ]; then
+  if [ -x ".venv/bin/python" ]; then
+    PY=".venv/bin/python"
+  elif [ -x "$HOME/miniconda3/envs/ai-lab/bin/python" ]; then
+    PY="$HOME/miniconda3/envs/ai-lab/bin/python"
+  else
+    PY="$(which python3)"
+  fi
+fi
 [ -x "$PY" ] || { echo "python not found at $PY (set PY=/path/to/python)"; exit 1; }
 
 echo ">> Task A: FishEye8K object subset + golden GT (HuggingFace, no token) ..."

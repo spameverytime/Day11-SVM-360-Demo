@@ -50,6 +50,7 @@ def cvat_conn() -> tuple[str, str, str]:
 
 
 def kaggle_headers() -> dict:
+    load_env()
     tok = os.environ.get("KAGGLE_API_TOKEN", "").strip()
     if not tok:
         raise SystemExit("KAGGLE_API_TOKEN missing (put it in ../cvat/.env or ./.env; "
